@@ -27,7 +27,7 @@
 | category_id            | integer    | null: false                    |
 | condition_id           | integer    | null: false                    |
 | pay_for_shipping_id    | integer    | null: false                    |
-| ship_from_id           | integer    | null: false                    |
+| prefecture_id          | integer    | null: false                    |
 | days_to_ship_id        | integer    | null: false                    |
 | price                  | integer    | null: false                    |
 | user                   | references | null: false, foreign_key: true |
@@ -52,11 +52,11 @@
 ## addressesテーブル
 | Column                 | Type       | Options                        |
 | ---------------------- | ---------- | ------------------------------ |
-| postal_code_id         | integer    | null: false                    |
+| postal_code            | string     | null: false                    |
 | prefecture_id          | integer    | null: false                    |
 | municipalities         | string     | null: false                    |
 | street_number          | string     | null: false                    |
-| building               | string     | null: false                    |
+| building               | string     |                     |
 | telephone_number       | string     | null: false                    |
 | purchase               | references | null: false, foreign_key: true |
 
