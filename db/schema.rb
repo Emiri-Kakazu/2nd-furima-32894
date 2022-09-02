@@ -16,11 +16,13 @@ ActiveRecord::Schema.define(version: 2022_06_12_034621) do
     t.string "nickname", default: "", null: false
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
+
+
     t.string "family_name", default: "", null: false
     t.string "first_name", default: "", null: false
     t.string "furigana_family_name", default: "", null: false
     t.string "furigana_first_name", default: "", null: false
-    t.date "birthday", null: false
+    t.datetime "birthday", default: "1990-01-01 00:00:00", null: false
     t.string "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
