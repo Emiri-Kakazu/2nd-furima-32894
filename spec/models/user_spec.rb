@@ -67,12 +67,25 @@ RSpec.describe User, type: :model do
         expect(@user.errors.full_messages).to include("Birthday can't be blank")
       end
 
+      it 'メールアドレスに@が含まれず登録できない' do
+        @user.email = 'useremail'
+        @user.valid?
+        expect(@user.errors.full_messages).to include("Email is invalid")
+      end
+
       it '既存ユーザーのメールアドレスと重複して登録できない' do
         @user.save
         another_user = FactoryBot.build(:user)
         another_user.email = @user.email
         another_user.valid?
         expect(another_user.errors.full_messages).to include('Email has already been taken')
+      end
+
+      it 'パスワードとパスワード（確認用）が不一致で登録できない' do
+        @user.password = '123abc'
+        @user.password_confirmation = '123abcd'
+        @user.valid?
+        expect(@user.errors.full_messages).to include("Password confirmation doesn't match Password")
       end
 
       it 'パスワードが5文字以下で登録できない' do
