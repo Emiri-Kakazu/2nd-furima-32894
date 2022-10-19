@@ -11,6 +11,7 @@ class Item < ApplicationRecord
   belongs_to :days_to_ship
 
   with_options presence: true do
+    validates :image
     validates :item_name
     validates :description
     validates :category_id
@@ -20,7 +21,7 @@ class Item < ApplicationRecord
     validates :days_to_ship_id
   end
 
-  with_options numericality: {other_than: 0, message: "can't be blank"} do
+  with_options numericality: { other_than: 0, message: "can't be blank" } do
     validates :category_id
     validates :condition_id
     validates :pay_for_shipping_id
@@ -28,5 +29,6 @@ class Item < ApplicationRecord
     validates :days_to_ship_id
   end
 
-  validates :price, presence: true, numericality: {in: 300..9999999}, format: { with: /\A[0-9]+\z/ }
+  validates :price, presence: true, numericality: { greater_than_or_equal_to: 300, less_than_or_equal_to: 9_999_999 },
+                    format: { with: /\A[0-9]+\z/ }
 end
