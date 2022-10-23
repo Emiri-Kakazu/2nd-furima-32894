@@ -70,7 +70,7 @@ RSpec.describe User, type: :model do
       it 'メールアドレスに@が含まれず登録できない' do
         @user.email = 'useremail'
         @user.valid?
-        expect(@user.errors.full_messages).to include("Email is invalid")
+        expect(@user.errors.full_messages).to include('Email is invalid')
       end
 
       it '既存ユーザーのメールアドレスと重複して登録できない' do
