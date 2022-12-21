@@ -19,6 +19,10 @@ class PurchaseItem
     validates :municipalities
   end
 
+  with_options presence: true do
+    validates :street_number
+  end
+
   with_options presence: true, format: { with: /\A0[0-9]{9,10}\z/, message: '半角数字、ハイフン無しで入力してください' } do
     validates :telephone_number
   end
