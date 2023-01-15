@@ -1,6 +1,6 @@
 class PurchaseItem
   include ActiveModel::Model
-  attr_accessor :user_id, :item_id, :postal_code, :prefecture_id, :municipalities, :street_number, :building, :telephone_number, :purchase_id
+  attr_accessor :token, :user_id, :item_id, :postal_code, :prefecture_id, :municipalities, :street_number, :building, :telephone_number, :purchase_id
 
   with_options presence: true, numericality: { only_integer: true, message: "半角数字を使用してください" } do
     validates :user_id
@@ -21,6 +21,7 @@ class PurchaseItem
 
   with_options presence: true do
     validates :street_number
+    validates :token
   end
 
   with_options presence: true, format: { with: /\A0[0-9]{9,10}\z/, message: '半角数字、ハイフン無しで入力してください' } do

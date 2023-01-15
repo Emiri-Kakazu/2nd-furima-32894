@@ -6,6 +6,8 @@ class User < ApplicationRecord
 
   has_many :items
   has_many :purchases
+  has_one :user, dependent: :destroy
+
   validates :nickname, presence: true
   validates :password, presence: true, format: { with: /\A(?=.*?[a-z])(?=.*?\d)[a-z\d]+\z/i }
 
