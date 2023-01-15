@@ -10,7 +10,7 @@ RSpec.describe PurchaseItem, type: :model do
   
   describe '配送先保存機能' do
     context '保存できる場合' do
-      it '郵便番号、都道府県、市区町村、番地、電話番号が存在して購入テーブルとも紐づいていて保存できる場合' do
+      it '郵便番号、都道府県、市区町村、番地、電話番号、トークンが存在して購入テーブルとも紐づいていて保存できる場合' do
         expect(@purchase_item).to be_valid
       end
     end
@@ -64,11 +64,11 @@ RSpec.describe PurchaseItem, type: :model do
         expect(@purchase_item.errors.full_messages).to include("Telephone number 半角数字、ハイフン無しで入力してください")
       end
 
-      #it '購入idが紐づいていないので保存できない' do
-        #@purchase_item.purchase_id = nil
-        #@purchase_item.valid?
-        #expect(@purchase_item.errors.full_messages).to include("Purchase must exist")
-      #end
+      it 'トークンがないので保存できない' do
+        @purchase_item.token = nil
+        @purchase_item.valid?
+        expect(@purchase_item.errors.full_messages).to include("Token can't be blank")
+      end
 
     end
   end

@@ -8,5 +8,6 @@ FactoryBot.define do
     street_number         { Gimei.address.town.kanji }
     building              { '高橋ハウス102号室' }
     telephone_number      { Faker::Number.leading_zero_number(digits: 10) }
+    token {"tok_abcdefghijk00000000000000000"}
   end
 end
