@@ -5,9 +5,9 @@ RSpec.describe PurchaseItem, type: :model do
     @user = FactoryBot.create(:user)
     @item = FactoryBot.create(:item)
     @purchase = FactoryBot.create(:purchase)
-    @purchase_item = FactoryBot.build(:purchase_item, user_id: @user.id , item_id: @item.id, purchase_id: @purchase.id)
+    @purchase_item = FactoryBot.build(:purchase_item, user_id: @user.id, item_id: @item.id, purchase_id: @purchase.id)
   end
-  
+
   describe '配送先保存機能' do
     context '保存できる場合' do
       it '郵便番号、都道府県、市区町村、番地、電話番号、トークンが存在して購入テーブルとも紐づいていて保存できる場合' do
@@ -49,19 +49,19 @@ RSpec.describe PurchaseItem, type: :model do
       it '郵便番号が半角ハイフンあり7桁でないので保存できない' do
         @purchase_item.postal_code = '１４１００１４'
         @purchase_item.valid?
-        expect(@purchase_item.errors.full_messages).to include("Postal code 半角数字、ハイフンを入れてください")
+        expect(@purchase_item.errors.full_messages).to include('Postal code 半角数字、ハイフンを入れてください')
       end
 
       it '市区町村が全角文字でないので保存できない' do
         @purchase_item.municipalities = 'Seattle City'
         @purchase_item.valid?
-        expect(@purchase_item.errors.full_messages).to include("Municipalities 全角文字を使用してください")
+        expect(@purchase_item.errors.full_messages).to include('Municipalities 全角文字を使用してください')
       end
 
       it '電話番号が半角ハイフンありの書式でないので保存できない' do
         @purchase_item.telephone_number = '０１２０４４４４４４'
         @purchase_item.valid?
-        expect(@purchase_item.errors.full_messages).to include("Telephone number 半角数字、ハイフン無しで入力してください")
+        expect(@purchase_item.errors.full_messages).to include('Telephone number 半角数字、ハイフン無しで入力してください')
       end
 
       it 'トークンがないので保存できない' do
@@ -69,7 +69,6 @@ RSpec.describe PurchaseItem, type: :model do
         @purchase_item.valid?
         expect(@purchase_item.errors.full_messages).to include("Token can't be blank")
       end
-
     end
   end
 end
