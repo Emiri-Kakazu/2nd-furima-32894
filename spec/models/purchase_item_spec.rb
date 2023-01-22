@@ -66,31 +66,37 @@ RSpec.describe PurchaseItem, type: :model do
       it '電話番号が全角なので保存できない' do
         @purchase_item.telephone_number = '０１２０４４４４４４'
         @purchase_item.valid?
-        expect(@purchase_item.errors.full_messages).to include('Telephone number 半角数字、ハイフン無しで入力してください')
+        expect(@purchase_item.errors.full_messages).to include('Telephone number 半角ハイフン無し、0から始まる10桁or11桁、で入力してください')
       end
 
       it '電話番号にハイフンがあるので保存できない' do
         @purchase_item.telephone_number = '090-1234-5678'
         @purchase_item.valid?
-        expect(@purchase_item.errors.full_messages).to include('Telephone number 半角数字、ハイフン無しで入力してください')
+        expect(@purchase_item.errors.full_messages).to include('Telephone number 半角ハイフン無し、0から始まる10桁or11桁、で入力してください')
       end
 
       it '電話番号が9桁以下なので保存できない' do
         @purchase_item.telephone_number = '090123456'
         @purchase_item.valid?
-        expect(@purchase_item.errors.full_messages).to include('Telephone number 半角数字、ハイフン無しで入力してください')
+        expect(@purchase_item.errors.full_messages).to include('Telephone number 半角ハイフン無し、0から始まる10桁or11桁、で入力してください')
       end
 
       it '電話番号が12桁以上なので保存できない' do
         @purchase_item.telephone_number = '090123456789'
         @purchase_item.valid?
-        expect(@purchase_item.errors.full_messages).to include('Telephone number 半角数字、ハイフン無しで入力してください')
+        expect(@purchase_item.errors.full_messages).to include('Telephone number 半角ハイフン無し、0から始まる10桁or11桁、で入力してください')
       end
 
       it '商品が紐づいていないので保存できない' do
         @purchase_item.item_id = nil
         @purchase_item.valid?
         expect(@purchase_item.errors.full_messages).to include("Item can't be blank")
+      end
+
+      it 'ユーザーが紐づいていないので保存できない' do
+        @purchase_item.user_id = nil
+        @purchase_item.valid?
+        expect(@purchase_item.errors.full_messages).to include("User can't be blank")
       end
 
       it 'トークンがないので保存できない' do

@@ -25,7 +25,7 @@ class PurchaseItem
     validates :token
   end
 
-  with_options presence: true, format: { with: /\A0[0-9]{9,10}\z/, message: '半角数字、ハイフン無しで入力してください' } do
+  with_options presence: true, format: { with: /\A0[0-9]{9,10}\z/, message: '半角ハイフン無し、0から始まる10桁or11桁、で入力してください' } do
     validates :telephone_number
   end
 
