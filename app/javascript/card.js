@@ -16,7 +16,6 @@ const pay = () => {
       if (response.error) {
         
       } else { //if文には；はいらない
-        debugger;
         const token = response.id;
         const renderDom = document.getElementById("charge-form");   //idを元に要素を取得
         const tokenObj = `<input value=${token} type="hidden" name='token'>`;   //paramsの中にトークンを含める

@@ -3,10 +3,9 @@ class PurchasesController < ApplicationController
   before_action :set_item, only: [:index, :create]
 
   def index
-    # @item = Item.find(params[:item_id])
     redirect_to root_path if current_user.id == @item.user.id
 
-    @exist = Purchase.where(item_id: params[:item_id]).exists? # 返り値はTrue/False
+    @exist = Purchase.where(item_id: params[:item_id]).exists?
     if @exist == true
       redirect_to root_path
     else
@@ -16,8 +15,6 @@ class PurchasesController < ApplicationController
 
   def create
     @purchase_item = PurchaseItem.new(purchase_params)
-    # @item = Item.find(params[:item_id])
-    # card = Card.find_by(user_id: current_user.id)
     if @purchase_item.valid?
       purchase
       @purchase_item.save
