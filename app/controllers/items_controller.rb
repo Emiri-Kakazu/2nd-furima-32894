@@ -23,7 +23,8 @@ class ItemsController < ApplicationController
   end
 
   def edit
-    if current_user.id != @item.user.id
+    purchased_item = Purchase.where(item_id: @item.id).exists?
+    if current_user.id != @item.user.id || purchased_item == true
       redirect_to root_path
     end
   end
@@ -37,9 +38,7 @@ class ItemsController < ApplicationController
   end
 
   def destroy
-    if current_user.id == @item.user.id
-      @item.destroy
-    end
+    @item.destroy if current_user.id == @item.user.id
     redirect_to root_path
   end
 
@@ -53,5 +52,4 @@ class ItemsController < ApplicationController
   def set_item
     @item = Item.find(params[:id])
   end
-
 end
