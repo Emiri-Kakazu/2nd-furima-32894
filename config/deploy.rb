@@ -31,3 +31,5 @@ namespace :deploy do
     invoke 'unicorn:restart'
   end
 end
+
+append :linked_dirs, "log", "tmp/pids", "tmp/cache", "tmp/sockets", "public/system", "public/storage"
