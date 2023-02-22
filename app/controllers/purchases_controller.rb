@@ -33,7 +33,7 @@ class PurchasesController < ApplicationController
   end
 
   def purchase
-    Payjp.api_key = Rails.application.credentials.PAYJP[:PAYJP_SECRET_KEY] # credentials.yml経由で環境変数を読み込む
+    Payjp.api_key = ENV["PAYJP_SECRET_KEY"] # 環境変数を読み込む
     Payjp::Charge.create(
       amount: @item.price, # 商品の値段
       card: purchase_params[:token], # 顧客のトークン
