@@ -25,14 +25,12 @@
     </div>
 
     <% if user_signed_in? %>
-      <% if current_user.id == @item.user.id %>
-        <%= link_to "商品の編集", edit_item_path, method: :get, class: "item-red-btn" %>
-        <p class="or-text">or</p>
-        <%= link_to "削除", "/items/#{@item.id}}", method: :delete, class:"item-destroy" %>
-      <% else %>
-
-        <% @purchased_item = Purchase.where(item_id: @item.id).exists? %>
-        <% if @purchased_item == false %>
+      <% if @purchased_item == false %>
+        <% if current_user.id == @item.user.id %>
+          <%= link_to "商品の編集", edit_item_path, method: :get, class: "item-red-btn" %>
+          <p class="or-text">or</p>
+          <%= link_to "削除", "/items/#{@item.id}}", method: :delete, class:"item-destroy" %>
+        <% else %>
           <%= link_to "購入画面に進む", "/items/#{ @item.id }/purchases" ,class:"item-red-btn"%>
         <% end %>
       <% end %>

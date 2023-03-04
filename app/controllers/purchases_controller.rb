@@ -1,26 +1,37 @@
 class PurchasesController < ApplicationController
   before_action :authenticate_user!, only: [:index, :create]
   before_action :set_item, only: [:index, :create]
+  before_action :check_item_purchased, only: [:index, :create]
 
   def index
-    redirect_to root_path if current_user.id == @item.user.id
-
-    @exist = Purchase.where(item_id: params[:item_id]).exists?
-    if @exist == true
-      redirect_to root_path
+    if @purchased_item == false
+      if current_user.id != @item.user.id
+        @purchase_item = PurchaseItem.new
+      else
+        redirect_to root_path
+      end
     else
-      @purchase_item = PurchaseItem.new
+      redirect_to root_path
     end
   end
 
   def create
-    @purchase_item = PurchaseItem.new(purchase_params)
-    if @purchase_item.valid?
-      purchase
-      @purchase_item.save
-      redirect_to root_path
+    if @purchased_item == false
+      if current_user.id != @item.user.id
+        @purchase_item = PurchaseItem.new(purchase_params)
+        if @purchase_item.valid?
+          purchase
+          @purchase_item.save
+          redirect_to root_path
+        else
+          render action: :index
+        end
+      else
+        redirect_to root_path
+      end
+
     else
-      render action: :index
+      redirect_to root_path
     end
   end
 
@@ -43,5 +54,9 @@ class PurchasesController < ApplicationController
 
   def set_item
     @item = Item.find(params[:item_id])
+  end
+
+  def check_item_purchased
+    @purchased_item = Purchase.where(item_id: @item.id).exists?
   end
 end
